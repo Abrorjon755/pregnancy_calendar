@@ -1,0 +1,43 @@
+class Day {
+  final DateTime date;
+  final String? icon;
+
+  const Day({
+    required this.date,
+    this.icon,
+  });
+
+  factory Day.fromJson(Map<String, Object?> json) {
+    return Day(
+      date: DateTime.parse(json['date'] as String),
+      icon: json['icon'] as String?,
+    );
+  }
+
+  Map<String, Object?> toJson() {
+    return {
+      'date': date.toIso8601String(),
+      'icon': icon,
+    };
+  }
+
+  Day copyWith({DateTime? date, String? icon}) {
+    return Day(
+      date: date ?? this.date,
+      icon: icon ?? this.icon,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! Day) return false;
+    return date == other.date && icon == other.icon;
+  }
+
+  @override
+  int get hashCode => Object.hash(date, icon);
+
+  @override
+  String toString() => 'Day(date: $date, icon: $icon)';
+}
